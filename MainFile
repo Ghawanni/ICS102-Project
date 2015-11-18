@@ -18,7 +18,7 @@ public class overlappingDriver {
 		int spy2 = rd.nextInt();
 		for(int j =0;j<m;j++)
 		{
-			for(int i=0;rd.hasNextInt();i++)
+			for(int i=0;i<=m;i++)
 			{
 				x1 = rd.nextInt();
 				y1 = rd.nextInt();
