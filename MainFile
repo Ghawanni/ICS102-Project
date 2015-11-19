@@ -7,7 +7,7 @@ public class overlappingDriver {
 
 	public static void main (String[] args) throws IOException
 	{
-		FileInputStream fis = new FileInputStream("C:/Users/Adnan/Desktop/file/wire-01.in");
+		FileInputStream fis = new FileInputStream("input.txt"); //Let's try to keep it general
 		Scanner rd = new Scanner(fis);
 		wire wr=new wire();
 		int x1,y1,x2,y2;
