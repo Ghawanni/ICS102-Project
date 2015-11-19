@@ -1,0 +1,57 @@
+import java.util.Scanner;
+import java.io.FileInputStream;
+import java.io.IOException;
+
+
+public class overlappingDriver {
+
+	public static void main (String[] args) throws IOException
+	{
+		FileInputStream fis = new FileInputStream("input.txt");	//Reading the input file.
+		Scanner rd = new Scanner(fis);
+		int m = rd.nextInt();	//Finiding and saving number of wires.
+		Chip startChip = new Chip(rd.nextInt(),rd.nextInt());	//Creating start and finish chips.
+		Chip finishChip = new Chip(rd.nextInt(),rd.nextInt());	//Now we have our start and end chip, we create a wire (array) for those.
+		Wire mainWire = new Wire(startChip,finishChip);	//Wire is created with two chips, this is the main one.
+		if(mainWire.getChip1X() == mainWire.getChip2X()){
+			int[] mainLength = mainWire.wireLengthY();
+		}
+		else if (mainWire.getChip1Y()==mainWire.getChip2Y()){
+			int[] mainLength = mainWire.wireLengthX();
+		}	//Until here, we succefully created the mine wire and returned it's length. Now, we have to create the other wires and compare :
+		int n = 1;			//counter the number of wires.
+		while(n <= m){			//in this loop will create different wires for each chip, we have the number of wires earlier from m.
+			Chip chip1 = new Chip(rd.nextInt(),rd.nextInt());	//Create first chip
+			Chip chip2 = new Chip(rd.nextInt(),rd.nextInt());	//Create second chip
+			Wire wire1 = new Wire(chip1,chip2);					//Make a wire.
+			if(wire1.getChip1X() == wire1.getChip2X()){			//Find the wire's length.
+				int[] wirelength = wire1.wireLengthY();
+			}
+			else if (wire1.getChip1Y()==wire1.getChip2Y()){
+				int[] wirelength = wire1.wireLengthX();
+			n++;
+		}
+			//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< STOPPED HERE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+		Wire wr= new Wire();
+		int x1,y1,x2,y2;
+		int m = rd.nextInt();
+		int spx1 = rd.nextInt();
+		int spx2 = rd.nextInt();
+		int spy1 = rd.nextInt();
+		int spy2 = rd.nextInt();
+		for(int j =0;j<m;j++)
+		{
+			for(int i=0;rd.hasNextInt();i++)
+			{
+				x1 = rd.nextInt();
+				y1 = rd.nextInt();
+				x2 = rd.nextInt();
+				y2 = rd.nextInt();
+				wr.wire(x1, y1, x2, y2, j);
+			}
+		}
+		rd.close();
+		fis.close();
+	}
+
+}
