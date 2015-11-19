@@ -7,13 +7,25 @@ public class Wire {
 	private int chip1Y;
 	private int chip2X;
 	private int chip2Y;
-	Wire(int chip1X, int chip1Y , int chip2X, int chip2Y){
-		this.chip1X = chip1X;
-		this.chip1Y = chip1Y;
-		this.chip2X = chip2X;
-		this.chip2Y = chip2Y;
+	public Wire(Chip chip1, Chip chip2){	//we input each chip's coordinates and create an array based on wich of the coordinates is the same.
+		chip1X = chip1.getChipX();
+		chip1Y = chip1.getChipY();
+		chip2X = chip2.getChipX();
+		chip2Y = chip2.getChipY();
 	}
-	// use if statment to use one of these two methods.
+	public int getChip1X(){
+		return chip1X;
+	}
+	public int getChip1Y(){
+		return chip1Y;
+	}
+	public int getChip2X(){
+		return chip2X;
+	}
+	public int getChip2Y(){
+		return chip2Y;
+	}
+	// use if statment in driver to use one of these two methods.
 	public int[] wireLengthY(){
 		int[] wireY = new int [Math.abs(this.chip1Y-this.chip2Y)];
 		for(int i = this.chip1Y ; i < this.chip2Y ; i++ ){
