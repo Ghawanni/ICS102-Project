@@ -1,0 +1,16 @@
+
+public class Chip {
+
+	private int chipX;
+	private int chipY;
+	Chip (int chipX,int chipY){
+		this.chipX = chipX;
+		this.chipY = chipY;
+	}
+	public int getChipX(){
+		return chipX;
+	}
+	public int getChipY(){
+		return chipY;
+	}
+}
