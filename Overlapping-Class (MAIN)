@@ -7,51 +7,70 @@ public class overlappingDriver {
 
 	public static void main (String[] args) throws IOException
 	{
+		
 		FileInputStream fis = new FileInputStream("input.txt");	//Reading the input file.
 		Scanner rd = new Scanner(fis);
 		int m = rd.nextInt();	//Finiding and saving number of wires.
-		Chip startChip = new Chip(rd.nextInt(),rd.nextInt());	//Creating start and finish chips.
-		Chip finishChip = new Chip(rd.nextInt(),rd.nextInt());	//Now we have our start and end chip, we create a wire (array) for those.
-		Wire mainWire = new Wire(startChip,finishChip);	//Wire is created with two chips, this is the main one.
-		if(mainWire.getChip1X() == mainWire.getChip2X()){
-			int[] mainLength = mainWire.wireLengthY();
+		int crossSections = 0;  //Number of cross sections.
+		int length=0;
+		int[] mainLength = null;
+		int[] wire1Length = null;
+		if(m<=3){				//if we have less than 3 wires then the output for sure is 0 (no squares).
+			System.out.println("0");
 		}
-		else if (mainWire.getChip1Y()==mainWire.getChip2Y()){
-			int[] mainLength = mainWire.wireLengthX();
-		}	//Until here, we succefully created the mine wire and returned it's length. Now, we have to create the other wires and compare :
-		int n = 1;			//counter the number of wires.
-		while(n <= m){			//in this loop will create different wires for each chip, we have the number of wires earlier from m.
-			Chip chip1 = new Chip(rd.nextInt(),rd.nextInt());	//Create first chip
-			Chip chip2 = new Chip(rd.nextInt(),rd.nextInt());	//Create second chip
-			Wire wire1 = new Wire(chip1,chip2);					//Make a wire.
-			if(wire1.getChip1X() == wire1.getChip2X()){			//Find the wire's length.
-				int[] wirelength = wire1.wireLengthY();
+		else{
+			Chip startChip = new Chip(rd.nextInt(),rd.nextInt());	//Creating start and finish chips.
+			Chip finishChip = new Chip(rd.nextInt(),rd.nextInt());	//Now we have our start and end chip, we create a wire (array) for those.
+			Wire mainWire = new Wire(startChip,finishChip);	//Wire is created with two chips, this is the main one.
+			if(mainWire.getChip1X() == mainWire.getChip2X()){
+				mainLength = mainWire.wireLengthY();
 			}
-			else if (wire1.getChip1Y()==wire1.getChip2Y()){
-				int[] wirelength = wire1.wireLengthX();
-			n++;
-		}
-			//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< STOPPED HERE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-		Wire wr= new Wire();
-		int x1,y1,x2,y2;
-		int m = rd.nextInt();
-		int spx1 = rd.nextInt();
-		int spx2 = rd.nextInt();
-		int spy1 = rd.nextInt();
-		int spy2 = rd.nextInt();
-		for(int j =0;j<m;j++)
-		{
-			for(int i=0;rd.hasNextInt();i++)
-			{
-				x1 = rd.nextInt();
-				y1 = rd.nextInt();
-				x2 = rd.nextInt();
-				y2 = rd.nextInt();
-				wr.wire(x1, y1, x2, y2, j);
+			else if (mainWire.getChip1Y()==mainWire.getChip2Y()){
+				mainLength = mainWire.wireLengthX();
+				length = mainLength.length;
+			}	//Until here, we succefully created the mine wire and returned it's length. Now, we have to create the other wires and compare :
+			int n = 1;			//counter for the number of wires.
+			while(n <= m){			//in this loop will create different wires for each chip, we have the number of wires earlier from m.
+				Chip chip1 = new Chip(rd.nextInt(),rd.nextInt());	//Create first chip
+				Chip chip2 = new Chip(rd.nextInt(),rd.nextInt());	//Create second chip
+				Wire wire1 = new Wire(chip1,chip2);					//Make a wire.
+				int wireLength=0;
+				if(wire1.getChip1X() == wire1.getChip2X()){			//Find the wire's length.
+					wire1Length = wire1.wireLengthY();
+					wireLength = wire1Length.length;
+				}
+				else if (wire1.getChip1Y()==wire1.getChip2Y()){
+					wire1Length = wire1.wireLengthX();
+					wireLength = wire1Length.length;
+				}
+				if (wireLength<length){
+					for(int i = 0 ; i < wireLength ; i++){
+						if(mainLength[i]==wire1Length[i])
+							crossSections++;
+					}
+				}
+				else if (length<wireLength){
+					for(int i = 0 ; i < length ; i++){
+						if(mainLength[i]==wire1Length[i])
+							crossSections++;
+					}
+				}
+				n++;
+				//now we compare arrays (must be done inside the loop since wire1 will change with each iteration & wireLength[] size is not defined outside.).
 			}
 		}
+		System.out.println(crossSections);
 		rd.close();
 		fis.close();
+	}
+	
+	
+	
+	public static void ArrayCopier(int[] n){	//a Method to create a copy for an array.
+		int[] copy = new int[n.length];
+		for(int i = 0 ; i <n.length ; i++){
+			copy[i]=n[i];
+		}
 	}
 
 }
